@@ -15,6 +15,7 @@ EndScreen.prototype = {
 		this.mApplication.showScreen(this.mDivName);
 
 		var resourceKey, sHTML = this.mApplication.renderTemplate('end_screen_ui', {
+			thot_bubble_end_screen:resource_data.getPath("thot_bubble_end_screen")
 		});
 		document.getElementById(this.mDivName).innerHTML = sHTML;
 		trace(" END Page..");

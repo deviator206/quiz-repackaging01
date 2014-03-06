@@ -209,13 +209,11 @@ var question_data = {
 };
 
 var resource_data = {
-	getImageInstance:function(key)
-	{
+	getImageInstance : function(key) {
 		return resource_data.images[key][1];
 	},
-	getPath :function(key)
-	{
-		return  (resource_data.images[key] !== undefined ) ? resource_data.images[key][1].src:""
+	getPath : function(key) {
+		return (resource_data.images[key] !== undefined ) ? resource_data.images[key][1].src : ""
 	},
 	images : {
 		'landing_lady' : ['landing/introImg1.jpg', null],
@@ -223,16 +221,22 @@ var resource_data = {
 		'common_start_btn' : ['common/start_button.jpg', null],
 		'landing_intro_btn' : ['landing/intro_button.jpg', null],
 		'landing_footer' : ['landing/footer.jpg', null],
-		
+		'img_thot_bubbles' : ['intro/introScrnImg.jpg', null],
+		'intro_continue_btn' : ['intro/continue_button2.jpg', null],
+		'thot_bubble_end_screen' : ['end/congImg.jpg', null],
+		'side_static_content' : ['game/qa.jpg', null],
+		'game_continue_btn' : ['game/continue_button.jpg', null],
+		'game_back_btn' : ['game/back_button.jpg', null],
+
 	},
 	dom : {//DIV NAMES
 		'loading' : 'loadingScreen',
 		'landing' : 'landingPage',
 		'intro' : 'introductionPage',
 		'game' : 'gamePage',
-		'end':'endPage'
+		'end' : 'endPage'
 	},
-	htmlentity : ['loading_screen_ui', 'landing_screen_ui', 'intro_screen_ui', 'game_screen_ui','end_screen_ui'],
+	htmlentity : ['loading_screen_ui', 'landing_screen_ui', 'intro_screen_ui', 'game_screen_ui', 'end_screen_ui'],
 	appMode : 1, // 0 - xtreme debugging  mode OR 1 - dev mode OR 2 -live with no console
 
 }

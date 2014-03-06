@@ -299,7 +299,7 @@ body{
 }
 
 .deviat_continueBtn{
-	background-image: url(../images/continue_button.jpg);
+	xbackground-image: url(../images/continue_button.jpg);
 	height: 51px;
 	width: 118px;
 	float: left;
@@ -396,7 +396,7 @@ body{
 }
 
 .deviat_backBtn{
-	background-image: url(../images/back_button.jpg);
+	xbackground-image: url(../images/back_button.jpg);
 	height: 45px;
 	width: 107px;
 	float: left;
@@ -406,7 +406,7 @@ body{
 }
 
 .deviat_continueBtn{
-	background-image: url(../images/continue_button2.jpg);
+	xbackground-image: url(../images/continue_button2.jpg);
 	height: 43px;
 	width: 105px;
 	float: left;
