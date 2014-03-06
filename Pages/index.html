@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!-->
+<html class="no-js">
+	<!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* STARTING POINT*/
+			var _gMainApplication
+			var documentPath = "Documents/";
+			var imagesPath = "PublishingImages/";
+			var selfPath = "../";
+			function getAssetPath(sType, str) {
+				var sTemp = selfPath;
+				switch(sType) {
+					case "docs":
+						sTemp += "" + documentPath
+						break;
+					case "img":
+						//console.log(' STR ' + str);
+						str = str.replace("img/", "");
+						sTemp += "" + imagesPath + "quiz/"
+						break;
+				}
+				sTemp += "" + str;
+				return sTemp;
+			}
+
+			var arrScriptTags = new Array('css/quiz_style.css', 'js/lib/jquery-1.7.2.min.js', 'js/misc.js', 'js/quiz_data.js', 'js/loader.js', 'js/landing.js', 'js/intro.js', 'js/game.js', 'js/end.js', 'js/quiz.js');
+			var arrScriptIndex = 0;
+			var arrDivNames = new Array('loadingScreen', 'landingPage', 'introductionPage', 'gamePage', 'endPage');
+			function makeAllInvisible() {
+				for (var i = 0; i < arrDivNames.length; i++)
+					document.getElementById(arrDivNames[i]).style.display = 'none'
+			}
+
+			function startLoadingAssets() {
+				/*if (arrScriptIndex == 0) {
+				 //makeAllInvisible();
+				 document.getElementById('appContainer').style.display = "none"
+				 document.getElementById('loading_script_tags').style.display = "block"
+				 }
+
+				 */
+
+				if (arrScriptIndex < arrScriptTags.length) {
+					if (arrScriptIndex < 1) {
+						AddCSS(getAssetPath("docs", arrScriptTags[arrScriptIndex]));
+						arrScriptIndex++;
+						startLoadingAssets();
+					} else {
+						AddScript(getAssetPath("docs", arrScriptTags[arrScriptIndex]), startLoadingAssets);
+						arrScriptIndex++;
+					}
+
+				} else {
+
+					_gMainApplication = new ApplicationWrapper();
+					_gMainApplication.setUp({
+						screenNames : arrDivNames
+					})
+					_gMainApplication.nextScene();
+
+				}
+			}
+
+			function AddCSS(url, callback) {
+				var script = null;
+				script = document.createElement('link');
+				script.href = url;
+				script.rel = "stylesheet";
+				script.type = 'text/css';
+				script.defer = false;
+
+				if ( typeof callback != "undefined" && callback != null) {
+
+					// IE only, connect to event, which fires when JavaScript is loaded
+					script.onreadystatechange = function() {
+						if (this.readyState == 'complete' || this.readyState == 'loaded') {
+							this.onreadystatechange = this.onload = null;
+							// prevent duplicate calls
+							callback();
+						}
+					}
+					// FireFox and others, connect to event, which fires when JavaScript is loaded
+					script.onload = function() {
+						this.onreadystatechange = this.onload = null;
+						// prevent duplicate calls
+
+						callback();
+					};
+				}
+
+				var head = document.getElementsByTagName('head').item(0);
+				head.appendChild(script);
+			}
+
+			function AddScript(url, callback) {
+				var script = null;
+				script = document.createElement('script');
+				script.src = url;
+				script.type = 'text/javascript';
+				script.defer = false;
+
+				if ( typeof callback != "undefined" && callback != null) {
+
+					// IE only, connect to event, which fires when JavaScript is loaded
+					script.onreadystatechange = function() {
+						if (this.readyState == 'complete' || this.readyState == 'loaded') {
+							this.onreadystatechange = this.onload = null;
+							// prevent duplicate calls
+							callback();
+						}
+					}
+					// FireFox and others, connect to event, which fires when JavaScript is loaded
+					script.onload = function() {
+						this.onreadystatechange = this.onload = null;
+						// prevent duplicate calls
+
+						callback();
+					};
+				}
+
+				var head = document.getElementsByTagName('head').item(0);
+				head.appendChild(script);
+			}
+
+
+			window.addEventListener ? window.addEventListener("load", startLoadingAssets, false) : window.attachEvent && window.attachEvent("onload", startLoadingAssets);
+
+		</script>
+		<script type="html/template" id = "loading_screen_ui">
+			<h1> LOADING PAGE </h1>
+			<div id="loadingScreen_front" style="width: 240px;height: 240px;">
+
+			</div>
+			<div id="loadingMessage">
+			Loading 24
+			</div>
+		</script>
+		<script type="html/template" id = "landing_screen_ui">
+			<div>
+			<h2> LANDING PAGE </h2>
+			<div id="landing_btn_start"> START GAME </div>
+			<div id="landing_btn_intro"> INTRO GAME </div>
+			</div>
+		</script>
+		<script type="html/template" id = "intro_screen_ui">
+			<div>
+			<h2> INTRO PAGE </h2>
+			<div id="intro_btn_continue"> CONTINUE </div>
+			</div>
+		</script>
+		<script type="html/template" id = "game_screen_ui">
+			<div>
+			<h2> Game PAGE </h2>
+			<div id="dummy_end">END Screen</div>
+			</div>
+		</script>
+		<script type="html/template" id = "end_screen_ui">
+			<div>
+			<h2> END PAGE </h2>
+
+			</div>
+		</script>
+
+		<div id="viewporter">
+
+			<div class="outerDiv">
+				<div class="mainDiv">
+
+					<div style="display: block; " id="appContainer">
+						<div style="margin-top: 115px; margin-left: 285px; display: block; " id="loadingScreen">
+
+						</div>
+						<div id="landingPage">
+
+						</div>
+						<div id="introductionPage">
+
+						</div>
+						<div id="gamePage"></div>
+						<div id="endPage"></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>
