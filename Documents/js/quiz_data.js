@@ -209,9 +209,21 @@ var question_data = {
 };
 
 var resource_data = {
+	getImageInstance:function(key)
+	{
+		return resource_data.images[key][1];
+	},
+	getPath :function(key)
+	{
+		return  (resource_data.images[key] !== undefined ) ? resource_data.images[key][1].src:""
+	},
 	images : {
-		'landing_lady' : ['landing/lady.png', null],
-		'landing_left_panel' : ['landing/left_panel.png', null]
+		'landing_lady' : ['landing/introImg1.jpg', null],
+		'grtr_logo_panel' : ['landing/grtr.jpg', null],
+		'common_start_btn' : ['common/start_button.jpg', null],
+		'landing_intro_btn' : ['landing/intro_button.jpg', null],
+		'landing_footer' : ['landing/footer.jpg', null],
+		
 	},
 	dom : {//DIV NAMES
 		'loading' : 'loadingScreen',
