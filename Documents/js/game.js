@@ -42,11 +42,11 @@ GameScreen.prototype = {
 
 		for ( indx = 0; indx <= total; indx++) {
 			sHTML += this.mApplication.renderTemplate('top_question_game_screen_ui', {
-				value : indx+1,
+				value : indx + 1,
 				questionnumber : indx
 			});
 		}
-		
+
 		$(".deviat_pgNukmbers").html(sHTML);
 	},
 	addEventListener : function() {
@@ -54,32 +54,45 @@ GameScreen.prototype = {
 		for ( index = 1; index < 5; index++)
 			this.mApplication.addEventHandler('option' + index, 'click', this.clickHandler.bind(this));
 	},
-	displayQuestion : function() {
+	displayQuestion : function(bCheck) {
 		var mCheck = this.mApplication.checkCounter();
 
 		switch(mCheck) {
 
 			case 0:
-				var index = 1, m = this.mApplication.appSessionData['questioncounter'], set = this.mApplication.appSessionData['questionSet'];
+				var questionTotal = this.mApplication.appMetaData['totalquestion'], mTemp, index = 1, m = this.mApplication.appSessionData['questioncounter'], set = this.mApplication.appSessionData['questionSet'];
 				this.mCurrentQuesitonData = question_data["questionSet"+set][m];
 
 				document.getElementById('questionContent').innerHTML = this.mCurrentQuesitonData.question;
-				$(".deviat_ansTxt").css("color", '#FFF')
-				for ( index = 1; index < 5; index++)
+				//FOR OPTIONS
+				for ( index = 1; index < 5; index++) {
+					$("div #option" + index).css("color", '#FFF')
 					document.getElementById('option' + index).innerHTML = this.mCurrentQuesitonData['option_' + index];
-
-				var mTemp = this.mApplication.isAnswered();
-				if (mTemp[0] !== -1) {
-					trace("ANSWERED ::" + mTemp[1])
-					$("div #option" + mTemp[1]).css("color", '#FDDF05');
 				}
-				
-				$(".question_top_panel").css("border", '#FDDF05 solid 2px');
-				$("#q_" + m).css("border", '#2E529C solid 2px');
-				
+
+				//FOR TOP QUESTION LIST
+				for ( index = 0; index <= questionTotal; index++) {
+					mTemp = this.mApplication.isAnswered(index);
+					if (mTemp[0] !== -1) {
+						$("#q_" + index).css("border", '#2E529C solid 2px');
+					} else {
+						$("#q_" + index).css("border", '#FDDF05 2px solid ');
+					}
+				}
+
+				mTemp = this.mApplication.isAnswered();
+				if (mTemp[0] !== -1) {
+					$("div #option" + mTemp[1]).css("color", '#FDDF05');
+					//$("#q_" + m).css("border", '#2E529C solid 2px');
+				} else {
+
+					//$("#q_" + m).css("border", '2px solid rgb(156, 100, 0)');
+				}
+				//same color for all current version
+				$("#q_" + m).css("border", '2px solid rgb(156, 100, 0)');
+
 				break;
 			case -1:
-				//
 				trace(" HAS CROSSED 1ST ELEMENT NOW BACK TO LANDING PAGE");
 				this.mApplication.moveTo('home');
 
@@ -87,7 +100,6 @@ GameScreen.prototype = {
 			case 1:
 				trace(" HAS CROSSED LAST ELEMENT NOW  TO FInAL PAGE");
 				this.mApplication.moveTo('end');
-
 				break;
 
 		}
@@ -98,7 +110,9 @@ GameScreen.prototype = {
 		trace("GAME Page: CLICKED :" + evt.currentTarget.id);
 		switch(evt.currentTarget.id) {
 			case 'game_continue_btn':
-				this.mApplication.nextScene();
+				//this.mApplication.nextScene();
+				this.mApplication.manipulateQuestionCounter(1)
+				this.displayQuestion(true);
 				break;
 			case 'game_back_btn':
 				this.mApplication.manipulateQuestionCounter(-1)
@@ -107,6 +121,7 @@ GameScreen.prototype = {
 			default:
 				var m = String(evt.currentTarget.id).substr(6, String(evt.currentTarget.id).length);
 				this.mApplication.setAnsweredQuestion(m);
+				$("#q_" + this.mApplication.appSessionData['questioncounter']).css("border", '#2E529C solid 2px');
 				this.mApplication.manipulateQuestionCounter(1)
 				this.displayQuestion();
 				break;

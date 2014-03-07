@@ -27,6 +27,7 @@ function ApplicationWrapper() {
 	}
 	this.answeredQuestion = [];
 	this.answeredAnswers = [];
+	this.mTrackerAnswers = [];
 
 	this.mHTMLTemplate = null;
 
@@ -44,7 +45,8 @@ ApplicationWrapper.prototype = {
 		this.mHTMLTemplate.loadTemplate(resource_data.htmlentity, 'script');
 
 		this.appMetaData.totalquestion = question_data['questionSet' + this.appMetaData.questionSet].length - 1;
-
+		for (var indx = 0; indx <= this.appMetaData.totalquestion; indx++)
+			this.mTrackerAnswers.push(indx);
 	},
 	setUp : function(d) {
 		this.mScreenManager = d.screenNames;
@@ -54,21 +56,35 @@ ApplicationWrapper.prototype = {
 		var bReturn = false
 		if (this.appSessionData.questioncounter < 0) {
 			this.appSessionData.questioncounter = 0;
-			bReturn = -1
+			if (this.answeredQuestion.length-1 === this.appMetaData.totalquestion) {
+				bReturn = -1
+			} else {
+				this.appSessionData.questioncounter = this.appMetaData.totalquestion;
+				bReturn = 0
+			}
+
 		} else if (this.appSessionData.questioncounter > this.appMetaData.totalquestion) {
 			this.appSessionData.questioncounter = this.appMetaData.totalquestion;
-			bReturn = 1
+			if (this.answeredQuestion.length-1 === this.appMetaData.totalquestion) {
+				bReturn = 1
+			} else {
+				this.appSessionData.questioncounter = 0;
+				bReturn = 0
+			}
 		} else {
 			bReturn = 0;
 		}
+
+		trace(" SETTING : " + this.appSessionData.questioncounter);
 		return bReturn;
 
 	},
-	isAnswered : function() {
-		var kilo, m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
+	isAnswered : function(mV) {
+
+		var kilo, m = this.answeredQuestion.indexOf((mV === undefined) ? this.appSessionData.questioncounter : mV);
 		if (m !== -1)
 			kilo = this.answeredAnswers[m]
-		return [m, kilo];
+		return [m, kilo, mV];
 	},
 	setAnsweredQuestion : function(answer) {
 		var m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
@@ -79,8 +95,8 @@ ApplicationWrapper.prototype = {
 			this.answeredQuestion[m] = this.appSessionData.questioncounter;
 			this.answeredAnswers[m] = answer;
 		}
-		trace("Q:"+this.answeredQuestion)
-		trace("A:"+this.answeredAnswers)
+		trace("Q:" + this.answeredQuestion)
+		trace("A:" + this.answeredAnswers)
 	},
 	moveTo : function(str) {
 		var mTraker = ['start', 'intro', 'home', 'end'];
