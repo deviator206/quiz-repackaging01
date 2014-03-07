@@ -10,49 +10,38 @@ var question_data = {
 		option_2 : "It's called The Ace",
 		option_3 : "It ferries customers between tables at the Casino Royale in Goa",
 		option_4 : "It's a mobile poker parlor",
-		img_url : "question_images/Level_1_q_1.png",
-		correct_answer : "1",
-		solution : "The Ace is Tata Motors' highly successful Small Commercial Vehicle. By focusing on customer segmentation, network optimization, pipeline management and sales operations, the project team helped Tata Motors generate approximately $45 million in additional revenue and significantly boost market share in all states - all in less than nine months."
+		correct_answer : "1"
+
 	}, {
 		question : "By 2015 India will have 160,000,000 wireless broadband and optic fiber-based connections.That's equal to....",
 		option_1 : "1 for every 8 citizens",
 		option_2 : "1 for every 80 citizens",
 		option_3 : "1 for every 800 citizens",
 		option_4 : "1 for every 8,000 citizens",
-		img_url : "question_images/Level_1_q_1.png",
-		q_cnt : ["level_1_q_1_a", "level_1_q_1_b"],
-		correct_answer : "1",
-		solution : "To respond to the 50,000 calls a day, Accenture helped New York City develop 311, a 24/7 phone and online customer service center that provides nearly 4,000 services to free up resources and provide faster customer response time. 125 million calls later the city is performing better than ever."
+		correct_answer : "1"
+
 	}, {
 		question : "Which states are able to compete more effectively with Internet-based communication channels for government-to-citizen services?",
 		option_1 : "Assam and Goa",
 		option_2 : "Kerala and Uttar Pradesh",
 		option_3 : "Nagaland and Sikkim",
 		option_4 : "Iowa and Indiana",
-		img_url : "question_images/Level_1_q_2.png",
-		correct_answer : "3",
-		q_cnt : ["level_1_q_2_a", "level_1_q_2_b"],
-		solution : "With operations in over 100 countries, Unilever asked us to help simplify, standardize and unify their business model. Our teams worked to implement a single HR and talent management model, a harmonized ERP platform as well as other restructuring projects. So far, the results have helped Unilever achieve over &euro; 1 billion in savings and more than halved the time for a new IT systems rollout."
+		correct_answer : "1"
+
 	}, {
 		question : "The India Postal System has been working to modernize and technologically enable its facilities.How many rural postal offices have been upgraded?",
 		option_1 : "12",
 		option_2 : "112",
 		option_3 : "139,000",
 		option_4 : "1,300",
-		img_url : "question_images/Level_1_q_3.png",
-		correct_answer : "3",
-		q_cnt : ["level_1_q_3_a"],
-		solution : "Trinity Health has always worked to fulfill a mission to provide affordable healthcare to the community. Accenture helped them consolidate their revenue operations into a single unit. This generated more than $500 million in additional revenue over three years and allowed Trinity to continue to reinvest back into the health of the community."
+		correct_answer : "1"
 	}, {
 		question : "What socio-economic benefits will India enjoy from having more digital citizens? ",
 		option_1 : "More websites",
 		option_2 : "More financial inclusion",
 		option_3 : "Public access to information",
 		option_4 : "All of the above",
-		img_url : "question_images/Level_1_q_4.png",
-		correct_answer : "4",
-		q_cnt : ["level_1_q_4_a"],
-		solution : "The Ace is Tata Motors' highly successful Small Commercial Vehicle. By focusing on customer segmentation, network optimization, pipeline management and sales operations, the project team helped Tata Motors generate approximately $45 million in additional revenue and significantly boost market share in all states - all in less than nine months."
+		correct_answer : "1"
 	}],
 	questionSet2 : [{
 		question : "What helped Piramal Healthcare turn the corner in growth?",
@@ -236,7 +225,11 @@ var resource_data = {
 		'game' : 'gamePage',
 		'end' : 'endPage'
 	},
-	htmlentity : ['loading_screen_ui', 'landing_screen_ui', 'intro_screen_ui', 'game_screen_ui', 'end_screen_ui','top_question_game_screen_ui'],
+	htmlentity : ['loading_screen_ui', 'landing_screen_ui', 'intro_screen_ui', 'game_screen_ui', 'end_screen_ui', 'top_question_game_screen_ui'],
 	appMode : 1, // 0 - xtreme debugging  mode OR 1 - dev mode OR 2 -live with no console
-	appTimer :5,// its seconds 
+	appTimer : 8, // its seconds
+	bench_mark : [100, 300, 400], // scoring mechanism range
+	no_of_stars : ["1", "2", "3"], // scoring mechanism award
+	per_question : 100, // perquestion hike
+
 }

@@ -14,8 +14,11 @@ EndScreen.prototype = {
 	setUp : function() {
 		this.mApplication.showScreen(this.mDivName);
 
-		var resourceKey, sHTML = this.mApplication.renderTemplate('end_screen_ui', {
-			thot_bubble_end_screen : resource_data.getPath("thot_bubble_end_screen")
+		var arrT = this.mApplication.getFinalScreenMsg(), resourceKey, sHTML = this.mApplication.renderTemplate('end_screen_ui', {
+			thot_bubble_end_screen : resource_data.getPath("thot_bubble_end_screen"),
+			main_ending_msg : arrT[0],
+			n_second : arrT[1],
+			n_star : arrT[2]
 		});
 		document.getElementById(this.mDivName).innerHTML = sHTML;
 		trace(" END Page..");
@@ -29,10 +32,9 @@ EndScreen.prototype = {
 	clickHandler : function(evt) {
 		this.mApplication.moveTo('home')
 
-	}
-	,
+	},
 	onWrapperPush : function(cmd, data) {
-		
+
 	}
 }
 
