@@ -128,6 +128,17 @@ GameScreen.prototype = {
 
 		}
 		return false;
+	},
+	onWrapperPush : function(cmd, data) {
+		switch(cmd) {
+			case 'timer':
+					trace(" current time: "+data.val)
+				break;
+			case 'end_timer':
+					trace("timer is over : now forced to End screen");
+					this.mApplication.moveTo('end')
+				break;	
+		}
 	}
 }
 

@@ -53,6 +53,9 @@ LandingScreen.prototype = {
 				break;
 		}
 		return false;
+	},
+	onWrapperPush : function(cmd, data) {
+		
 	}
 }
 

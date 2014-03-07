@@ -11,6 +11,7 @@ function LoadingScreen(a) {
 }
 
 LoadingScreen.prototype = {
+	
 	setUp : function() {
 		this.mApplication.showScreen(this.mDivName);
 
@@ -39,6 +40,9 @@ LoadingScreen.prototype = {
 	onComplete : function() {
 		trace("ASSET Loading COMPLETE!")
 		this.mApplication.nextScene();
+	},
+	onWrapperPush : function(cmd, data) {
+		
 	}
 }
 

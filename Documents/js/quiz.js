@@ -22,13 +22,15 @@ function ApplicationWrapper() {
 
 	this.appSessionData = {
 		questioncounter : 0,
-		apptimer : 0,
 		questionSet : 1
 	}
+
 	this.answeredQuestion = [];
 	this.answeredAnswers = [];
 	this.mTrackerAnswers = [];
 
+	this.mAppTimerComponent = 0;
+	this.mAppDisplayTimer=0;
 	this.mHTMLTemplate = null;
 
 	//this.jsAnimManager = new jsAnimManager(10);
@@ -38,8 +40,50 @@ function ApplicationWrapper() {
 }
 
 ApplicationWrapper.prototype = {
-	setValues : function() {
+	resetSession : function() {
+		this.appSessionData = {
+			questioncounter : 0,
+			apptimer : 0,
+			questionSet : 1
+		}
 
+		this.answeredQuestion = [];
+		this.answeredAnswers = [];
+		this.mTrackerAnswers = [];
+		this.appMetaData.totalquestion = question_data['questionSet' + this.appMetaData.questionSet].length - 1;
+
+		this.appMetaData.apptimer = resource_data.appTimer;
+
+		for (var indx = 0; indx <= this.appMetaData.totalquestion; indx++)
+			this.mTrackerAnswers.push(indx);
+
+	},
+	onProgressTimer : function() {
+		this.mAppDisplayTimer--;
+		//this.mCurrentScreen.onWrapperPush('timer',{val:this.mAppDisplayTimer});
+		if(this.mAppDisplayTimer <= 0)
+		{
+			this.stopAppTimer();	
+			this.mCurrentScreen.onWrapperPush('end_timer',{val:this.mAppDisplayTimer});
+		}
+		else
+		{
+			this.mAppTimerComponent = setTimeout(this.onProgressTimer.bind(this), (1000));
+			this.mCurrentScreen.onWrapperPush('timer',{val:this.mAppDisplayTimer});
+		}
+		 
+					
+	},
+	startAppTimer : function() {
+		clearInterval(this.mAppTimerComponent);
+		this.mAppDisplayTimer =this.appMetaData.apptimer;
+		this.mAppTimerComponent = setTimeout(this.onProgressTimer.bind(this), (1000));
+	},
+	
+	stopAppTimer : function() {
+		clearInterval(this.mAppTimerComponent);
+	},
+	setValues : function() {
 		this.appMode = resource_data.appMode;
 		this.mHTMLTemplate = new HTMLTemplate();
 		this.mHTMLTemplate.loadTemplate(resource_data.htmlentity, 'script');
@@ -56,16 +100,19 @@ ApplicationWrapper.prototype = {
 		var bReturn = false
 		if (this.appSessionData.questioncounter < 0) {
 			this.appSessionData.questioncounter = 0;
-			if (this.answeredQuestion.length-1 === this.appMetaData.totalquestion) {
+			if (this.answeredQuestion.length - 1 === this.appMetaData.totalquestion) {
 				bReturn = -1
 			} else {
-				this.appSessionData.questioncounter = this.appMetaData.totalquestion;
-				bReturn = 0
+				//#>LOOP BETWEEN QUESTIONS
+				//#>this.appSessionData.questioncounter = this.appMetaData.totalquestion;
+				//#>bReturn = 0
+
+				bReturn = -1
 			}
 
 		} else if (this.appSessionData.questioncounter > this.appMetaData.totalquestion) {
 			this.appSessionData.questioncounter = this.appMetaData.totalquestion;
-			if (this.answeredQuestion.length-1 === this.appMetaData.totalquestion) {
+			if (this.answeredQuestion.length - 1 === this.appMetaData.totalquestion) {
 				bReturn = 1
 			} else {
 				this.appSessionData.questioncounter = 0;
@@ -126,6 +173,8 @@ ApplicationWrapper.prototype = {
 				break;
 			case 20:
 				this.nGameState = 40;
+				this.resetSession();
+				this.stopAppTimer();
 				this.mCurrentScreen = new LandingScreen(this);
 				break;
 			case 40:
@@ -136,10 +185,13 @@ ApplicationWrapper.prototype = {
 				this.nGameState = 80;
 				if (this.answeredQuestion.length == 0)
 					this.appSessionData.questioncounter = 0
+					
+				this.startAppTimer();	
 				this.mCurrentScreen = new GameScreen(this);
 				break;
 			case 80:
 				this.nGameState = 20;
+				this.stopAppTimer();
 				this.mCurrentScreen = new EndScreen(this);
 				break;
 

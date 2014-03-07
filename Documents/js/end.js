@@ -15,7 +15,7 @@ EndScreen.prototype = {
 		this.mApplication.showScreen(this.mDivName);
 
 		var resourceKey, sHTML = this.mApplication.renderTemplate('end_screen_ui', {
-			thot_bubble_end_screen:resource_data.getPath("thot_bubble_end_screen")
+			thot_bubble_end_screen : resource_data.getPath("thot_bubble_end_screen")
 		});
 		document.getElementById(this.mDivName).innerHTML = sHTML;
 		trace(" END Page..");
@@ -23,8 +23,16 @@ EndScreen.prototype = {
 		//addEventListener
 		//document.getElementById('intro_btn_continue').addEventListener("click", this.clickHandler.bind(this));
 
-	}
+		this.mApplication.addEventHandler('end_screen_back', 'click', this.clickHandler.bind(this));
 
-	
+	},
+	clickHandler : function(evt) {
+		this.mApplication.moveTo('home')
+
+	}
+	,
+	onWrapperPush : function(cmd, data) {
+		
+	}
 }
 
