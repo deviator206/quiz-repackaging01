@@ -12,17 +12,21 @@ function ApplicationWrapper() {
 	this.mScreenManager = new Array();
 	this.appMetaData = {
 		levelcounter : 0,
-		questioncounter : 1,
+		questioncounter : 0,
 		totalquestion : 5,
 		totallevel : 1,
 		apptimer : 120,
+		questionSet : 1,
 		benchmark : [100, 200, 300]
 	};
 
 	this.appSessionData = {
-		questioncounter : 1,
+		questioncounter : 0,
 		apptimer : 0,
+		questionSet : 1
 	}
+	this.answeredQuestion = [];
+	this.answeredAnswers = [];
 
 	this.mHTMLTemplate = null;
 
@@ -34,20 +38,54 @@ function ApplicationWrapper() {
 
 ApplicationWrapper.prototype = {
 	setValues : function() {
+
 		this.appMode = resource_data.appMode;
 		this.mHTMLTemplate = new HTMLTemplate();
 		this.mHTMLTemplate.loadTemplate(resource_data.htmlentity, 'script');
+
+		this.appMetaData.totalquestion = question_data['questionSet' + this.appMetaData.questionSet].length - 1;
 
 	},
 	setUp : function(d) {
 		this.mScreenManager = d.screenNames;
 		this.showScreen();
 	},
-	moveTo : function(str) {
-		var mTraker = ['start', 'intro', 'home'];
-		var mState = [60, 40, 20];
+	checkCounter : function() {
+		var bReturn = false
+		if (this.appSessionData.questioncounter < 0) {
+			this.appSessionData.questioncounter = 0;
+			bReturn = -1
+		} else if (this.appSessionData.questioncounter > this.appMetaData.totalquestion) {
+			this.appSessionData.questioncounter = this.appMetaData.totalquestion;
+			bReturn = 1
+		} else {
+			bReturn = 0;
+		}
+		return bReturn;
 
-		console.log(arguments);
+	},
+	isAnswered : function() {
+		var kilo, m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
+		if (m !== -1)
+			kilo = this.answeredAnswers[m]
+		return [m, kilo];
+	},
+	setAnsweredQuestion : function(answer) {
+		var m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
+		if (m === -1) {
+			this.answeredQuestion.push(this.appSessionData.questioncounter);
+			this.answeredAnswers.push(answer);
+		} else {
+			this.answeredQuestion[m] = this.appSessionData.questioncounter;
+			this.answeredAnswers[m] = answer;
+		}
+		trace("Q:"+this.answeredQuestion)
+		trace("A:"+this.answeredAnswers)
+	},
+	moveTo : function(str) {
+		var mTraker = ['start', 'intro', 'home', 'end'];
+		var mState = [60, 40, 20, 80];
+
 		if (mTraker.indexOf(str) !== -1)
 			this.nGameState = mState[mTraker.indexOf(str)];
 		else
@@ -64,7 +102,7 @@ ApplicationWrapper.prototype = {
 	 80 - End Screen
 	 * */
 	nextScene : function() {
-
+		trace(" showing : " + this.nGameState)
 		switch(this.nGameState) {
 			case 10:
 				this.nGameState = 20;
@@ -80,6 +118,8 @@ ApplicationWrapper.prototype = {
 				break;
 			case 60:
 				this.nGameState = 80;
+				if (this.answeredQuestion.length == 0)
+					this.appSessionData.questioncounter = 0
 				this.mCurrentScreen = new GameScreen(this);
 				break;
 			case 80:
@@ -112,6 +152,19 @@ ApplicationWrapper.prototype = {
 			trace(" INVALID ID FOR TEMPLATING : " + id);
 
 		return (mH !== undefined) ? mH : "";
+	},
+	addEventHandler : function(ID, evtType, handler) {
+		var domEle = document.getElementById(ID);
+		if (domEle.attachEvent) {
+			domEle.attachEvent("on" + evtType, handler);
+		} else {
+			domEle.addEventListener(evtType, handler);
+		}
+
+	},
+	manipulateQuestionCounter : function(val) {
+
+		this.appSessionData.questioncounter += val
 	}
 }
 

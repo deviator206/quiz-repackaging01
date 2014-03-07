@@ -199,6 +199,9 @@
 			</div>
 
 		</script>
+		<script type="html/template" id = "top_question_game_screen_ui">
+				<div id="q_<%questionnumber%>" class="question_top_panel"><%value%></div>
+		</script>
 		<script type="html/template" id = "game_screen_ui">
 
 			
@@ -217,14 +220,14 @@
 			</div>
 
 			<div class="deviat_questDiv">
-			<div class="deviat_quesTxt">
+			<div id="questionContent" class="deviat_quesTxt">
 			How many women work at Accenture?
 			</div>
 			<div class="deviat_ansBox">
-			<div class="deviat_ansTxt">a. >30,000</div>
-			<div class="deviat_ansTxt">b. >40,000</div>
-			<div class="deviat_ansTxt">c. >60,000</div>
-			<div class="deviat_ansTxt">d. >100,000</div>
+			<div class="deviat_ansTxt">a. ><span id="option1">30,000</span></div>
+			<div class="deviat_ansTxt">b. ><span id="option2">40,000</span></div>
+			<div class="deviat_ansTxt">c. ><span id="option3">60,000</span></div>
+			<div class="deviat_ansTxt">d. ><span id="option4">100,000</span></div>
 			</div>
 			</div>
 

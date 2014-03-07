@@ -22,7 +22,8 @@ IntroScreen.prototype = {
 
 		document.getElementById('intro_btn_continue').style.backgroundImage = "url('" + resource_data.getPath("intro_continue_btn") + "')";
 		//addEventListener
-		document.getElementById('intro_btn_continue').addEventListener("click", this.clickHandler.bind(this));
+		//document.getElementById('intro_btn_continue').addEventListener("click", this.clickHandler.bind(this));
+		this.mApplication.addEventHandler('intro_btn_continue','click',this.clickHandler.bind(this));
 
 	},
 
@@ -33,6 +34,7 @@ IntroScreen.prototype = {
 				this.mApplication.nextScene();
 				break;
 		}
+		return false;
 	}
 }
 

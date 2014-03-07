@@ -23,15 +23,8 @@ EndScreen.prototype = {
 		//addEventListener
 		//document.getElementById('intro_btn_continue').addEventListener("click", this.clickHandler.bind(this));
 
-	},
-
-	clickHandler : function(evt) {
-		trace("END Page: CLICKED :" + evt.currentTarget.id);
-		switch(evt.currentTarget.id) {
-			case 'intro_btn_continue':
-				this.mApplication.nextScene();
-				break;
-		}
 	}
+
+	
 }
 

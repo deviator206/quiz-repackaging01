@@ -345,11 +345,11 @@ body{
 	border:#FDDF05 solid 2px;
 }
 
-
+/*
 .deviat_pgNukmbers div:hover{
 	border:#2E529C solid 2px;
 }
-
+*/
 
 .deviat_questDiv{
 	width: 440px;
@@ -384,10 +384,11 @@ body{
 	padding: -1px;
 }
 
-.deviat_ansTxt:hover{
+/*.deviat_ansTxt:hover{
 	color:#FDDF05;
 	cursor:pointer;
 }
+*/
 
 .deviat_btnDiv{
 	position: absolute;

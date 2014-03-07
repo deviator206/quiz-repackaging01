@@ -28,15 +28,21 @@ LandingScreen.prototype = {
 		// UI edits
 		document.getElementById('landing_btn_start').style.backgroundImage = "url('"+resource_data.getPath("common_start_btn")+"')";
 		document.getElementById('landing_btn_intro').style.backgroundImage = "url('"+resource_data.getPath("landing_intro_btn")+"')";
+		
 		trace(" GRT :: "+"#"+this.mDivName+" .deviat_grtrThan");
 		$("#"+this.mDivName+" .deviat_grtrThan").css("background-image","url('"+resource_data.getPath("grtr_logo_panel")+"')");
 		
-		document.getElementById('landing_btn_start').addEventListener("click", this.clickHandler.bind(this));
-		document.getElementById('landing_btn_intro').addEventListener("click", this.clickHandler.bind(this));
+		
+		this.mApplication.addEventHandler('landing_btn_start','click',this.clickHandler.bind(this));
+		this.mApplication.addEventHandler('landing_btn_intro','click',this.clickHandler.bind(this));
+		
+		//document.getElementById('landing_btn_start').addEventListener("click", this.clickHandler.bind(this));
+		//document.getElementById('landing_btn_intro').addEventListener("click", this.clickHandler.bind(this));
 
 	},
 
 	clickHandler : function(evt) {
+		
 		trace("Landing Page: CLICKED :" + evt.currentTarget.id);
 		switch(evt.currentTarget.id) {
 			case 'landing_btn_start':
@@ -46,6 +52,7 @@ LandingScreen.prototype = {
 				this.mApplication.moveTo('intro');
 				break;
 		}
+		return false;
 	}
 }
 
