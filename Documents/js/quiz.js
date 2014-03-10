@@ -191,7 +191,7 @@ ApplicationWrapper.prototype = {
 			bReturn[2] = resource_data.no_of_stars[2];
 		}
 
-		bReturn[1] = "" + this.mAppDisplayTimer;
+		bReturn[1] = "" + Number(this.appMetaData.apptimer) - Number(this.mAppDisplayTimer);
 
 		return bReturn;
 	},
