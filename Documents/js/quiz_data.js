@@ -76,7 +76,7 @@ var resource_data = {
 	},
 	htmlentity : ['loading_screen_ui', 'landing_screen_ui', 'intro_screen_ui', 'game_screen_ui', 'end_screen_ui', 'top_question_game_screen_ui'],
 	appMode : 1, // 0 - xtreme debugging  mode OR 1 - dev mode OR 2 -live with no console
-	appTimer : 8, // its seconds
+	appTimer : 600, // its seconds
 	bench_mark : [100, 300, 400], // scoring mechanism range
 	no_of_stars : ["1", "2", "3"], // scoring mechanism award
 	per_question : 100, // perquestion hike
