@@ -20,15 +20,17 @@ GameScreen.prototype = {
 		});
 		document.getElementById(this.mDivName).innerHTML = sHTML;
 
-		trace(" GAME Page..");
-
-		document.getElementById('game_back_btn').style.backgroundImage = "url('" + resource_data.getPath("game_back_btn") + "')";
+		if (document.getElementById('game_back_btn') != undefined)
+		{
+			document.getElementById('game_back_btn').style.backgroundImage = "url('" + resource_data.getPath("game_back_btn") + "')";
+			this.mApplication.addEventHandler('game_back_btn', 'click', this.clickHandler.bind(this));
+		}
+			
+		
 		document.getElementById('game_continue_btn').style.backgroundImage = "url('" + resource_data.getPath("intro_continue_btn") + "')";
 		//addEventListener
-		//document.getElementById('game_back_btn').addEventListener("click", this.clickHandler.bind(this));
-		//document.getElementById('game_continue_btn').addEventListener("click", this.clickHandler.bind(this));
 		this.mApplication.addEventHandler('game_continue_btn', 'click', this.clickHandler.bind(this));
-		this.mApplication.addEventHandler('game_back_btn', 'click', this.clickHandler.bind(this));
+		
 
 		this.displayQuestionsTopPanel();
 		this.displayQuestion()
@@ -111,6 +113,7 @@ GameScreen.prototype = {
 		switch(evt.currentTarget.id) {
 			case 'game_continue_btn':
 				//this.mApplication.nextScene();
+				
 				this.mApplication.manipulateQuestionCounter(1)
 				this.displayQuestion(true);
 				break;
@@ -132,12 +135,12 @@ GameScreen.prototype = {
 	onWrapperPush : function(cmd, data) {
 		switch(cmd) {
 			case 'timer':
-					trace(" current time: "+data.val)
+				trace(" current time: " + data.val)
 				break;
 			case 'end_timer':
-					trace("timer is over : now forced to End screen");
-					this.mApplication.moveTo('end')
-				break;	
+				trace("timer is over : now forced to End screen");
+				this.mApplication.moveTo('end')
+				break;
 		}
 	}
 }

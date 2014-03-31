@@ -273,9 +273,9 @@ ApplicationWrapper.prototype = {
 	},
 	addEventHandler : function(ID, evtType, handler) {
 		var domEle = document.getElementById(ID);
-		if (domEle.attachEvent) {
+		if (domEle !== undefined && domEle.attachEvent) {
 			domEle.attachEvent("on" + evtType, handler);
-		} else {
+		} else if (domEle !== undefined) {
 			domEle.addEventListener(evtType, handler);
 		}
 
