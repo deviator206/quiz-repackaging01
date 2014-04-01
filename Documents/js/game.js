@@ -7,7 +7,9 @@ function GameScreen(a) {
 	this.mDivName = resource_data.dom['game'];
 	this.mGameSplashLoader = null;
 	this.mGameAssetLoader = null;
+	this.mCurrentSelectionAnswerID = -1;
 	this.mCurrentQuesitonData = {};
+
 	this.setUp()
 }
 
@@ -20,17 +22,16 @@ GameScreen.prototype = {
 		});
 		document.getElementById(this.mDivName).innerHTML = sHTML;
 
-		if (document.getElementById('game_back_btn') != undefined)
-		{
+		if (document.getElementById('game_back_btn') != undefined) {
 			document.getElementById('game_back_btn').style.backgroundImage = "url('" + resource_data.getPath("game_back_btn") + "')";
 			this.mApplication.addEventHandler('game_back_btn', 'click', this.clickHandler.bind(this));
 		}
-			
-		
-		document.getElementById('game_continue_btn').style.backgroundImage = "url('" + resource_data.getPath("intro_continue_btn") + "')";
+
+		document.getElementById('explanationContent').style.display = "none"
+		//document.getElementById('game_continue_btn').style.backgroundImage = "url('" + resource_data.getPath("intro_continue_btn") + "')";
 		//addEventListener
 		this.mApplication.addEventHandler('game_continue_btn', 'click', this.clickHandler.bind(this));
-		
+		document.getElementById('game_continue_btn').innerHTML = "Submit";
 
 		this.displayQuestionsTopPanel();
 		this.displayQuestion()
@@ -75,8 +76,13 @@ GameScreen.prototype = {
 				//FOR TOP QUESTION LIST
 				for ( index = 0; index <= questionTotal; index++) {
 					mTemp = this.mApplication.isAnswered(index);
+
 					if (mTemp[0] !== -1) {
 						$("#q_" + index).css("border", '#2E529C solid 2px');
+						if (mTemp[3] !== undefined) {
+							var color = (mTemp[3] == true) ? 'green' : 'red'
+							$("#q_" + index).css("background-color", color);
+						}
 					} else {
 						$("#q_" + index).css("border", '#FDDF05 2px solid ');
 					}
@@ -112,21 +118,42 @@ GameScreen.prototype = {
 		trace("GAME Page: CLICKED :" + evt.currentTarget.id);
 		switch(evt.currentTarget.id) {
 			case 'game_continue_btn':
-				//this.mApplication.nextScene();
-				
-				this.mApplication.manipulateQuestionCounter(1)
-				this.displayQuestion(true);
+				var answer, s = (document.getElementById('game_continue_btn').innerHTML).toLowerCase();
+				if (s == "submit") {
+					// submit the answer
+					if (this.mCurrentSelectionAnswerID !== -1) {
+						answer = this.mApplication.setAnsweredQuestion(this.mCurrentSelectionAnswerID);
+						var color = (answer == true) ? 'green' : 'red'
+						$("#q_" + this.mApplication.appSessionData['questioncounter']).css("background-color", color);
+						//this.mApplication.manipulateQuestionCounter(1) NO NEED TO UPDATE QUESTION COUNTER SINCE USER WOULD BE ON SAME QUESTION WITH
+						this.mCurrentSelectionAnswerID = -1
+						document.getElementById('game_continue_btn').innerHTML = "Continue"
+						document.getElementById('explanationContent').style.height = $(".deviat_questDiv").height() + "px";
+						document.getElementById('explanationContent').innerHTML = this.mCurrentQuesitonData['explanation']
+						document.getElementById('explanationContent').style.display = "block"
+					}
+				} else {
+					// continue after reading the explanation
+					document.getElementById('explanationContent').style.display = "none"
+					document.getElementById('game_continue_btn').innerHTML = "Submit"
+					this.mApplication.manipulateQuestionCounter(1)
+					this.displayQuestion(true);
+				}
 				break;
 			case 'game_back_btn':
 				this.mApplication.manipulateQuestionCounter(-1)
 				this.displayQuestion();
 				break;
-			default:
+			case 'old':
 				var m = String(evt.currentTarget.id).substr(6, String(evt.currentTarget.id).length);
 				this.mApplication.setAnsweredQuestion(m);
 				$("#q_" + this.mApplication.appSessionData['questioncounter']).css("border", '#2E529C solid 2px');
 				this.mApplication.manipulateQuestionCounter(1)
 				this.displayQuestion();
+				break;
+			default :
+				this.mCurrentSelectionAnswerID = String(evt.currentTarget.id).substr(6, String(evt.currentTarget.id).length);
+				$("#q_" + this.mApplication.appSessionData['questioncounter']).css("border", '#2E529C solid 2px');
 				break;
 
 		}
@@ -135,7 +162,7 @@ GameScreen.prototype = {
 	onWrapperPush : function(cmd, data) {
 		switch(cmd) {
 			case 'timer':
-				trace(" current time: " + data.val)
+				//trace(" current time: " + data.val)
 				break;
 			case 'end_timer':
 				trace("timer is over : now forced to End screen");

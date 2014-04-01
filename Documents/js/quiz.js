@@ -144,15 +144,18 @@ ApplicationWrapper.prototype = {
 		var kilo, m = this.answeredQuestion.indexOf((mV === undefined) ? this.appSessionData.questioncounter : mV);
 		if (m !== -1)
 			kilo = this.answeredAnswers[m]
-		return [m, kilo, mV];
+		return [m, kilo, mV,(this.mScoreTracker[m]== 0)?false:true];
 	},
 	scoringMechanism : function(m) {
-		var mIndex, usrAns = this.answeredAnswers[m];
+		var bReturn=false, mIndex, usrAns = this.answeredAnswers[m];
+		
 		var actual = question_data['questionSet' + this.appMetaData.questionSet][this.appSessionData.questioncounter].correct_answer
 		if (usrAns === actual) {
 			this.mScoreTracker[m] = resource_data.per_question;
+			bReturn=true
 		} else {
 			this.mScoreTracker[m] = 0;
+			bReturn=false
 		}
 
 		this.mTotalScore = 0
@@ -160,9 +163,10 @@ ApplicationWrapper.prototype = {
 			this.mTotalScore += this.mScoreTracker[mIndex];
 
 		trace("TOTAL SCORE " + this.mTotalScore)
+		return bReturn;
 	},
 	setAnsweredQuestion : function(answer) {
-		var m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
+		var  bReturn =false, m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
 		if (m === -1) {
 			m = this.answeredAnswers.length;
 			this.answeredQuestion.push(this.appSessionData.questioncounter);
@@ -172,10 +176,13 @@ ApplicationWrapper.prototype = {
 			this.answeredQuestion[m] = this.appSessionData.questioncounter;
 			this.answeredAnswers[m] = answer;
 		}
-		this.scoringMechanism(m);
+		bReturn = this.scoringMechanism(m);
+		
 		trace("Q:" + this.answeredQuestion)
 		trace("A:" + this.answeredAnswers)
 		trace("S:" + this.mScoreTracker)
+		
+		return bReturn;
 	},
 	getFinalScreenMsg : function(msg) {
 		var bReturn = ["", "", ""];

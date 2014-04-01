@@ -10,7 +10,8 @@ var question_data = {
 		option_2 : "It's called The Ace",
 		option_3 : "It ferries customers between tables at the Casino Royale in Goa",
 		option_4 : "It's a mobile poker parlor",
-		correct_answer : "1"
+		correct_answer : "1",
+		explanation:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
 
 	}, {
 		question : "By 2015 India will have 160,000,000 wireless broadband and optic fiber-based connections.That's equal to....",
@@ -18,7 +19,8 @@ var question_data = {
 		option_2 : "1 for every 80 citizens",
 		option_3 : "1 for every 800 citizens",
 		option_4 : "1 for every 8,000 citizens",
-		correct_answer : "1"
+		correct_answer : "1",
+		explanation:'(AAA )Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
 
 	}, {
 		question : "Which states are able to compete more effectively with Internet-based communication channels for government-to-citizen services?",
@@ -26,7 +28,8 @@ var question_data = {
 		option_2 : "Kerala and Uttar Pradesh",
 		option_3 : "Nagaland and Sikkim",
 		option_4 : "Iowa and Indiana",
-		correct_answer : "1"
+		correct_answer : "1",
+		explanation:'(BBB ) Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
 
 	}, {
 		question : "The India Postal System has been working to modernize and technologically enable its facilities.How many rural postal offices have been upgraded?",
@@ -34,14 +37,16 @@ var question_data = {
 		option_2 : "112",
 		option_3 : "139,000",
 		option_4 : "1,300",
-		correct_answer : "1"
+		correct_answer : "1",
+		explanation:'(CCC ) Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
 	}, {
 		question : "What socio-economic benefits will India enjoy from having more digital citizens? ",
 		option_1 : "More websites",
 		option_2 : "More financial inclusion",
 		option_3 : "Public access to information",
 		option_4 : "All of the above",
-		correct_answer : "1"
+		correct_answer : "1",
+		explanation:'(DDD )Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
 	}]
 
 };
