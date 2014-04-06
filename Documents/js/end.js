@@ -27,10 +27,32 @@ EndScreen.prototype = {
 		//document.getElementById('intro_btn_continue').addEventListener("click", this.clickHandler.bind(this));
 
 		this.mApplication.addEventHandler('end_screen_back', 'click', this.clickHandler.bind(this));
+		this.mApplication.addEventHandler('facebook', 'click', this.clickHandler.bind(this));
+		this.mApplication.addEventHandler('twitter', 'click', this.clickHandler.bind(this));
+		this.mApplication.addEventHandler('linkedin', 'click', this.clickHandler.bind(this));
 
 	},
 	clickHandler : function(evt) {
-		this.mApplication.moveTo('home')
+		var url ="";
+		switch(evt.currentTarget.id) {
+			case 'facebook':
+				url = "http://www.facebook.com/sharer.php?u=http://appstore.com&amp;t=Testing";
+				window.open(url,"_blank");
+				break;
+			case 'twitter':
+				url = "http://twitter.com/home?status=Testing";
+				window.open(url,"_blank");
+				break;
+			case 'linkedin':
+				//https://developer.linkedin.com/documents/share-linkedin
+				url = 'http://www.linkedin.com/shareArticle?mini=true&url=http%3A//google.com&title=testing the simple share&summary=any test&source=juggernaut-studios.com';
+				window.open(url,"_blank");
+
+				break;
+			default :
+				this.mApplication.moveTo('home');
+				break;
+		}
 
 	},
 	onWrapperPush : function(cmd, data) {

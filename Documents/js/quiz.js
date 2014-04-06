@@ -88,7 +88,13 @@ ApplicationWrapper.prototype = {
 	startAppTimer : function() {
 		clearInterval(this.mAppTimerComponent);
 		this.mAppDisplayTimer = this.appMetaData.apptimer;
+		
+		this.mCurrentScreen.onWrapperPush('timer', {
+				val : this.mAppDisplayTimer
+			});
+			console.log(" TIMER SHOWN")
 		this.mAppTimerComponent = setTimeout(this.onProgressTimer.bind(this), (1000));
+		
 	},
 
 	stopAppTimer : function() {
@@ -243,8 +249,9 @@ ApplicationWrapper.prototype = {
 				if (this.answeredQuestion.length == 0)
 					this.appSessionData.questioncounter = 0
 
-				this.startAppTimer();
+				
 				this.mCurrentScreen = new GameScreen(this);
+				this.startAppTimer();
 				break;
 			case 80:
 				this.nGameState = 20;

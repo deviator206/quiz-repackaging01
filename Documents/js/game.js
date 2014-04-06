@@ -154,15 +154,41 @@ GameScreen.prototype = {
 			default :
 				this.mCurrentSelectionAnswerID = String(evt.currentTarget.id).substr(6, String(evt.currentTarget.id).length);
 				$("#q_" + this.mApplication.appSessionData['questioncounter']).css("border", '#2E529C solid 2px');
+				
+				$("#option1").css("color", 'white');
+				$("#option2").css("color", 'white');
+				$("#option3").css("color", 'white');
+				$("#option4").css("color", 'white');
+				$("#option" + this.mCurrentSelectionAnswerID).css("color", 'black');
+				
 				break;
 
 		}
 		return false;
 	},
+	
+	convertTimeIntoDisplayFormat:function(val)
+	{
+		
+		var minutes = Math.floor(Number(val) / 60);
+		 var seconds = val - minutes * 60;;
+		 
+		 if(minutes < 10)
+		 {
+		 	minutes = "0"+minutes
+		 }
+		 if(seconds < 10)
+		 {
+		 	seconds = "0"+seconds
+		 }
+		return minutes +" : "+ seconds;
+		
+	},
 	onWrapperPush : function(cmd, data) {
 		switch(cmd) {
 			case 'timer':
 				//trace(" current time: " + data.val)
+				document.getElementById("timerComponent").innerHTML = this.convertTimeIntoDisplayFormat(data.val); 
 				break;
 			case 'end_timer':
 				trace("timer is over : now forced to End screen");
