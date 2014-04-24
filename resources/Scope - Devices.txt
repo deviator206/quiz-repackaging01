@@ -1,0 +1,15 @@
+
+Following are the screen resolutions (Portrait mode) for mobile version of WQQ:
+iPhone devices:
+1.      320 x 480 px: The iPhone screen resolution.
+
+2.      640 x 960 px: The iPhone 4/4s screen resolution.
+
+3.      640 x 1136 px: The iPhone 5/5s/5c screen resolution.
+
+Android devices:
+4.      854/800 x 480 px: Motorola, Sony Arc.
+
+5.      720 x 1280 px: Acer, HTC, LG, Samsung S3.
+
+6.      1080 x 1920 px: HD Display.
