@@ -28,8 +28,10 @@ IntroScreen.prototype = {
 	},
 
 	clickHandler : function(evt) {
-		trace("Intro Page: CLICKED :" + evt.currentTarget.id);
-		switch(evt.currentTarget.id) {
+		
+		var target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+		trace("Intro Page: CLICKED :" + target.id);
+		switch(target.id) {
 			case 'intro_btn_continue':
 				this.mApplication.nextScene();
 				break;

@@ -115,8 +115,9 @@ GameScreen.prototype = {
 	},
 
 	clickHandler : function(evt) {
-		trace("GAME Page: CLICKED :" + evt.currentTarget.id);
-		switch(evt.currentTarget.id) {
+		var target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+		trace("GAME Page: CLICKED :" + target.id);
+		switch(target.id) {
 			case 'game_continue_btn':
 				var answer, s = (document.getElementById('game_continue_btn').innerHTML).toLowerCase();
 				if (s == "submit") {
@@ -145,14 +146,14 @@ GameScreen.prototype = {
 				this.displayQuestion();
 				break;
 			case 'old':
-				var m = String(evt.currentTarget.id).substr(6, String(evt.currentTarget.id).length);
+				var m = String(target.id).substr(6, String(target.id).length);
 				this.mApplication.setAnsweredQuestion(m);
 				$("#q_" + this.mApplication.appSessionData['questioncounter']).css("border", '#2E529C solid 2px');
 				this.mApplication.manipulateQuestionCounter(1)
 				this.displayQuestion();
 				break;
 			default :
-				this.mCurrentSelectionAnswerID = String(evt.currentTarget.id).substr(6, String(evt.currentTarget.id).length);
+				this.mCurrentSelectionAnswerID = String(target.id).substr(6, String(target.id).length);
 				$("#q_" + this.mApplication.appSessionData['questioncounter']).css("border", '#2E529C solid 2px');
 				
 				$("#option1").css("color", 'white');

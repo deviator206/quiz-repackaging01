@@ -34,7 +34,8 @@ EndScreen.prototype = {
 	},
 	clickHandler : function(evt) {
 		var url ="";
-		switch(evt.currentTarget.id) {
+		var target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+		switch(target.id) {
 			case 'facebook':
 				url = "http://www.facebook.com/sharer.php?u=http://appstore.com&amp;t=Testing";
 				window.open(url,"_blank");

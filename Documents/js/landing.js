@@ -42,9 +42,9 @@ LandingScreen.prototype = {
 	},
 
 	clickHandler : function(evt) {
-		
-		trace("Landing Page: CLICKED :" + evt.currentTarget.id);
-		switch(evt.currentTarget.id) {
+		var target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+		trace("Landing Page: CLICKED :" + target.id);
+		switch(target.id) {
 			case 'landing_btn_start':
 				this.mApplication.moveTo('start');
 				break;
