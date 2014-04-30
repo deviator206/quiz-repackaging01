@@ -59,8 +59,8 @@ var resource_data = {
 		return (resource_data.images[key] !== undefined ) ? resource_data.images[key][1].src : ""
 	},
 	images : {
-		'landing_lady' : ['landing/introImg1.jpg', null],
-		'grtr_logo_panel' : ['landing/grtr.jpg', null],
+		'landing_lady' : ['landing/bg-girl.png', null],
+		'grtr_logo_panel' : ['landing/grtr.png', null],
 		'common_start_btn' : ['common/start_button.jpg', null],
 		'landing_intro_btn' : ['landing/intro_button.jpg', null],
 		'landing_footer' : ['landing/footer.jpg', null],

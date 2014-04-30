@@ -5,6 +5,7 @@
 	<!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
 		<title></title>
 
 	</head>
@@ -31,7 +32,7 @@
 				return sTemp;
 			}
 
-			var arrScriptTags = new Array('css/quiz_style.css', 'js/lib/jquery-1.7.2.min.js', 'js/misc.js', 'js/quiz_data.js', 'js/loader.js', 'js/landing.js', 'js/intro.js', 'js/game.js', 'js/end.js', 'js/quiz.js');
+			var arrScriptTags = new Array('css/quiz_style01.css', 'lib/jquery-1.9.1.js', 'js/misc.js', 'js/quiz_data.js', 'js/loader.js', 'js/landing.js', 'js/intro.js', 'js/game.js', 'js/end.js', 'js/quiz.js');
 			var arrScriptIndex = 0;
 			var arrDivNames = new Array('loadingScreen', 'landingPage', 'introductionPage', 'gamePage', 'endPage');
 			function makeAllInvisible() {
@@ -39,6 +40,7 @@
 					document.getElementById(arrDivNames[i]).style.display = 'none'
 			}
 
+			var firstTym = 0;
 			function startLoadingAssets() {
 				/*if (arrScriptIndex == 0) {
 				 //makeAllInvisible();
@@ -47,6 +49,21 @@
 				 }
 
 				 */
+
+				if (firstTym === 0) {
+					var WX, WY;
+					if (window.innerWidth) {
+						WX = window.innerWidth;
+						WY = window.innerHeight;
+					} else {
+						WX = document.body.clientWidth;
+						WY = document.body.clientHeight;
+					}
+
+					document.getElementById("viewporter").style.height = WY + "px";
+					//document.getElementById("viewporter").style.width = WX+"px";
+
+				}
 
 				if (arrScriptIndex < arrScriptTags.length) {
 					if (arrScriptIndex < 1) {
@@ -143,7 +160,7 @@
 			Loading 24
 			</div>
 		</script>
-		<script type="html/template" id = "landing_screen_ui">
+		<script type="html/template" id = "landing_screen_ui1">
 
 			<div class="deviat_introScreen">
 			<div>
@@ -167,6 +184,53 @@
 
 			<div class="deviat_introScreen">
 			<img src="<%img_landing_lady%>" class="deviat_introImgCls" height="505" width="483" border="0" />
+			</div>
+		</script>
+
+		<script type="html/template" id = "landing_screen_ui2">
+
+			<div class="container mainbg inherit-dimension">
+			<div class="row">
+			<div class="deviat_grtrThan"></div>
+
+			</div>
+			<div class="row">
+			<div class="col-xs-10">
+			<span class="landing-text">Why do smart women want to work at Accenture ?</span>
+			</div>
+
+			</div>
+			<div class="row landing-btn-row">
+			<div  id="landing_btn_start" class="col-xs-4 btn-base">Start Game</div>
+
+			<div id="landing_btn_intro" class="col-xs-4 btn-base">Introduction</div>
+			</div>
+			<div class="row">
+			<div  id="img_landing_lady" class="col-xs-10 landing-lady"></div>
+			</div>
+			</div>
+		</script>
+
+		<script type="html/template" id = "landing_screen_ui">
+
+			<div class="app-wrapper container">
+			<div class="row">
+			<div class="col-xs-6 deviator-logo-holder deviat_grtrThan"></div>
+			</div>
+			<div class="row ">
+			<div class="col-xs-10">
+			<span class="landing-text">Why do smart women want to work at Accenture ?</span>
+			</div>
+			</div>
+			<div class="row landing-btn-row">
+			<div  id="landing_btn_start" class="col-xs-4 btn-base">Start Game</div>
+			<div id="landing_btn_intro" class="col-xs-4  col-xs-offset-1 btn-base">Introduction</div>
+			</div>
+
+			<div class="row landing-footer">
+			<div  id="img_landing_lady" class="landing-lady"></div>
+
+			</div>
 			</div>
 		</script>
 
@@ -200,11 +264,10 @@
 
 		</script>
 		<script type="html/template" id = "top_question_game_screen_ui">
-				<div id="q_<%questionnumber%>" class="question_top_panel"><%value%></div>
+			<div id="q_<%questionnumber%>" class="question_top_panel"><%value%></div>
 		</script>
 		<script type="html/template" id = "game_screen_ui">
 
-			
 			<div class="deviat_introScreen">
 			<div class="deviat_pgNukmbers">
 			<div>1</div>
@@ -231,21 +294,19 @@
 			</div>
 			</div>
 			<div id="explanationContent" class="deviat_explanationDiv">
-			
-		
 
 			</div>
 
 			<div class="deviat_introScreen">
-			<div id="timerComponent" class="timer_container"> timer box</div>	
+			<div id="timerComponent" class="timer_container"> timer box</div>
 			<img src="<%side_static_content%>" class="deviat_introImgCls3" height="257" width="277" border="0" />
 			</div>
 			<div class="deviat_btnDiv">
 			<!-- As per changes_0.1 there is no back button and continue button has two states : submit|continue
- 				<div id="game_back_btn" class="deviat_backBtn"></div>
- 				<div id="game_continue_btn" class="deviat_continueBtn"></div>
- 				-->
-				<div id="game_continue_btn" class="deviat_continueBtn"></div>
+			<div id="game_back_btn" class="deviat_backBtn"></div>
+			<div id="game_continue_btn" class="deviat_continueBtn"></div>
+			-->
+			<div id="game_continue_btn" class="deviat_continueBtn"></div>
 			</div>
 
 			<!--<div class="footer"> &copy; 2014 Accenture. All rights reserved.</div>-->
@@ -270,10 +331,10 @@
 
 			</div>
 			<div class="socail_site_buttons">
-				
-				<div id="facebook" class="socailfb">Facebook</div>
-				<div id="twitter" class="socailfb">Twitter</div>
-				<div id="linkedin" class="socailfb">LinkedIn</div>
+
+			<div id="facebook" class="socailfb">Facebook</div>
+			<div id="twitter" class="socailfb">Twitter</div>
+			<div id="linkedin" class="socailfb">LinkedIn</div>
 			</div>
 			<button id="end_screen_back">  DUmmy Back</button>
 
@@ -282,27 +343,20 @@
 			</div>
 		</script>
 
-		<div id="viewporter">
+		<div id="viewporter" class="app-wrapper1">
 
-			<div class="outerDiv">
-				<div class="mainDiv">
-
-					<div style="display: block; " id="appContainer">
-						<div style="margin-top: 115px; margin-left: 285px; display: block; " id="loadingScreen">
-
-						</div>
-						<div id="landingPage">
-
-						</div>
-						<div id="introductionPage">
-
-						</div>
-						<div id="gamePage"></div>
-						<div id="endPage"></div>
-					</div>
-				</div>
+			<div style="margin-top: 20%; margin-left: 30%; display: block; " id="loadingScreen" class="inherit-dimension">
 
 			</div>
+			<div id="landingPage" class="inherit-dimension">
+
+			</div>
+			<div id="introductionPage" class="inherit-dimension">
+
+			</div>
+			<div id="gamePage" class="inherit-dimension"></div>
+			<div id="endPage" class="inherit-dimension"></div>
+
 		</div>
 	</body>
 </html>

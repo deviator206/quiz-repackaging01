@@ -15,30 +15,26 @@ LandingScreen.prototype = {
 		this.mApplication.showScreen(this.mDivName);
 
 		var resourceKey, sHTML = this.mApplication.renderTemplate('landing_screen_ui', {
-			img_landing_lady:resource_data.getPath("landing_lady"),
-			img_landing_footer:resource_data.getPath("landing_footer")
+			img_landing_footer : resource_data.getPath("landing_footer")
 		});
 		document.getElementById(this.mDivName).innerHTML = sHTML;
-		trace(" Landing Page..");
 
-		//addEventListener
-		//landing_btn_start
-		//landing_btn_intro
-		
 		// UI edits
-		document.getElementById('landing_btn_start').style.backgroundImage = "url('"+resource_data.getPath("common_start_btn")+"')";
-		document.getElementById('landing_btn_intro').style.backgroundImage = "url('"+resource_data.getPath("landing_intro_btn")+"')";
+		//document.getElementById('landing_btn_start').style.backgroundImage = "url('"+resource_data.getPath("common_start_btn")+"')";
+		//document.getElementById('landing_btn_intro').style.backgroundImage = "url('"+resource_data.getPath("landing_intro_btn")+"')";
+
+		document.getElementById('img_landing_lady').style.backgroundImage = "url('" + resource_data.getPath("landing_lady") + "')";
 		
-		trace(" GRT :: "+"#"+this.mDivName+" .deviat_grtrThan");
-		$("#"+this.mDivName+" .deviat_grtrThan").css("background-image","url('"+resource_data.getPath("grtr_logo_panel")+"')");
-		
-		
-		this.mApplication.addEventHandler('landing_btn_start','click',this.clickHandler.bind(this));
-		this.mApplication.addEventHandler('landing_btn_intro','click',this.clickHandler.bind(this));
-		
+
+		//trace(" GRT :: " + "#" + this.mDivName + " .deviat_grtrThan");
+		$("#" + this.mDivName + " .deviat_grtrThan").css("background-image", "url('" + resource_data.getPath("grtr_logo_panel") + "')");
+
+		this.mApplication.addEventHandler('landing_btn_start', 'click', this.clickHandler.bind(this));
+		this.mApplication.addEventHandler('landing_btn_intro', 'click', this.clickHandler.bind(this));
+
 		//document.getElementById('landing_btn_start').addEventListener("click", this.clickHandler.bind(this));
 		//document.getElementById('landing_btn_intro').addEventListener("click", this.clickHandler.bind(this));
-
+		this.onScreenUpdate()	
 	},
 
 	clickHandler : function(evt) {
@@ -55,7 +51,40 @@ LandingScreen.prototype = {
 		return false;
 	},
 	onWrapperPush : function(cmd, data) {
+		switch(cmd) {
+			case 'screen_update':
+						this.onScreenUpdate()	
+					break;
+		}
+	},
+	onScreenUpdate:function()
+	{
+		var w, h;
+		if (window.innerWidth) {
+			w = window.innerWidth;
+			h = window.innerHeight;
+		} else {
+			w = document.body.clientWidth;
+			h = document.body.clientHeight;
+		}
+		
+		console.log(w,h)
+		switch(w)
+		{
+			case 3201:
+				var ht =h - $(".deviator-landig-page-floor").height();
+				
+				$(".app-wrapper").css("height",h+"px");
+				$(".deviator-logo-holder").css("height","131px");
+				$(".deviator-landig-page-floor").css("position","absolute");
+				$(".landing-lady").css("height","230px");
+				$(".deviator-landig-page-floor").css("margin-top",ht+"px");
+				
+			break;
+			
+		}
 		
 	}
+	
 }
 

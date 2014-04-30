@@ -1,5 +1,14 @@
 /**
- * @author deviator206@gmail.com
+ * @author DEVELOPER@JnS
+ *
+ *
+ Select the particular layers you want to save as a .png file
+ press Ctrl+e (that'll merge them into a single layer)
+ select all and copy
+ press Ctrl+n to create new file.
+ The default option in Photoshop is that the size of the new file will be the same as what you've in clip-board. In this case, it'll give you a size with the empty spaces trimmed.
+ Now paste your clip-board content and save as .png.
+
  */
 
 /**
@@ -88,13 +97,13 @@ ApplicationWrapper.prototype = {
 	startAppTimer : function() {
 		clearInterval(this.mAppTimerComponent);
 		this.mAppDisplayTimer = this.appMetaData.apptimer;
-		
+
 		this.mCurrentScreen.onWrapperPush('timer', {
-				val : this.mAppDisplayTimer
-			});
-			console.log(" TIMER SHOWN")
+			val : this.mAppDisplayTimer
+		});
+		console.log(" TIMER SHOWN")
 		this.mAppTimerComponent = setTimeout(this.onProgressTimer.bind(this), (1000));
-		
+
 	},
 
 	stopAppTimer : function() {
@@ -150,18 +159,18 @@ ApplicationWrapper.prototype = {
 		var kilo, m = this.answeredQuestion.indexOf((mV === undefined) ? this.appSessionData.questioncounter : mV);
 		if (m !== -1)
 			kilo = this.answeredAnswers[m]
-		return [m, kilo, mV,(this.mScoreTracker[m]== 0)?false:true];
+		return [m, kilo, mV, (this.mScoreTracker[m] == 0) ? false : true];
 	},
 	scoringMechanism : function(m) {
-		var bReturn=false, mIndex, usrAns = this.answeredAnswers[m];
-		
+		var bReturn = false, mIndex, usrAns = this.answeredAnswers[m];
+
 		var actual = question_data['questionSet' + this.appMetaData.questionSet][this.appSessionData.questioncounter].correct_answer
 		if (usrAns === actual) {
 			this.mScoreTracker[m] = resource_data.per_question;
-			bReturn=true
+			bReturn = true
 		} else {
 			this.mScoreTracker[m] = 0;
-			bReturn=false
+			bReturn = false
 		}
 
 		this.mTotalScore = 0
@@ -172,7 +181,7 @@ ApplicationWrapper.prototype = {
 		return bReturn;
 	},
 	setAnsweredQuestion : function(answer) {
-		var  bReturn =false, m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
+		var bReturn = false, m = this.answeredQuestion.indexOf(this.appSessionData.questioncounter);
 		if (m === -1) {
 			m = this.answeredAnswers.length;
 			this.answeredQuestion.push(this.appSessionData.questioncounter);
@@ -183,11 +192,11 @@ ApplicationWrapper.prototype = {
 			this.answeredAnswers[m] = answer;
 		}
 		bReturn = this.scoringMechanism(m);
-		
+
 		trace("Q:" + this.answeredQuestion)
 		trace("A:" + this.answeredAnswers)
 		trace("S:" + this.mScoreTracker)
-		
+
 		return bReturn;
 	},
 	getFinalScreenMsg : function(msg) {
@@ -249,7 +258,6 @@ ApplicationWrapper.prototype = {
 				if (this.answeredQuestion.length == 0)
 					this.appSessionData.questioncounter = 0
 
-				
 				this.mCurrentScreen = new GameScreen(this);
 				this.startAppTimer();
 				break;
@@ -310,6 +318,37 @@ window.onerror = function(msg, url, lineNumber) {
 var trace = function(str) {
 	if (_gMainApplication !== undefined && _gMainApplication.appMode == 1)
 		console.log("#[QUIZ APP LOGS]:" + str);
+}
+function doOnOrientationChange() {
+	switch(window.orientation) {
+		case -90:
+		case 90:
+			alert('landscape');
+			break;
+		default:
+			alert('portrait');
+			break;
+	}
+}
+
+
+window.addEventListener ? window.addEventListener('orientationchange', doOnOrientationChange) : window.attachEvent && window.attachEvent("onorientationchange", doOnOrientationChange);
+
+window.onresize = function(event) {
+	if (_gMainApplication !== undefined) {
+		var w, h;
+		if (window.innerWidth) {
+			w = window.innerWidth;
+			h = window.innerHeight;
+		} else {
+			w = document.body.clientWidth;
+			h = document.body.clientHeight;
+		}
+		_gMainApplication.mCurrentScreen.onWrapperPush('screen_update', {
+			w : w,
+			h : h
+		});
+	}
 }
 /*
  ApplicationWrapper.prototype.startTheGamePlay = function() {
